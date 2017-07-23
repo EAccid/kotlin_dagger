@@ -1,0 +1,130 @@
+buildscript {
+    ext.kotlinVersion = '1.1.2-4'
+    ext.androidGradlePluginVersion = '8.4.0'
+
+    repositories {
+        jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://jitpack.io" }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "gradle.plugin.me.tatarka:gradle-retrolambda:3.4.0"
+        classpath "com.jakewharton:butterknife-gradle-plugin:$androidGradlePluginVersion"
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    signingConfigs {
+        release {}
+        debug {        }
+    }
+
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.dive.inkotlin"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
+        multiDexEnabled true
+    }
+
+    dexOptions { javaMaxHeapSize "2g" }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+    packagingOptions {
+        pickFirst 'META-INF/rxjava.properties'
+    }
+    productFlavors {
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility 1.8
+    }
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res',
+                            'src/main/custom_res'
+
+                    ]
+            java.source = [
+                    'src/main/java',
+                    'src/main/custom'
+            ]
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://maven.google.com' }
+    flatDir { dirs 'libs' }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //moxy
+    compile 'com.arello-mobile:moxy:1.5.3'
+    compile 'com.arello-mobile:moxy-android:1.5.3'
+    compile 'com.arello-mobile:moxy-app-compat:1.5.3'
+    kapt 'com.arello-mobile:moxy-compiler:1.5.3'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    //butter knife
+    compile 'com.jakewharton:butterknife:8.5.1'
+    kapt 'com.jakewharton:butterknife-compiler:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    //dagger
+    compile 'com.google.dagger:dagger:2.8'
+    kapt "com.google.dagger:dagger-compiler:2.8"
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    //added libs
+    compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
+    compile 'com.patrickpissurno:ripple-effect:1.3.1'
+    compile 'io.saeid:fab-loading:1.0.0'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.5'
+    implementation  'com.afollestad.material-dialogs:commons:0.9.4.5'
+    implementation  'at.blogc:expandabletextview:1.0.3'
+    compile 'com.orhanobut:hawk:2.0.1'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.shamanland:xdroid-toaster:0.0.5'
+
+    //try anko
+    compile "org.jetbrains.anko:anko:$anko_version"
+
+}
+
+kapt {
+    generateStubs = true
+}

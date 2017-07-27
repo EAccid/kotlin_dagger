@@ -6,7 +6,7 @@ import com.dive.inkotlin.Details;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreferencesHandler {
+public class PreferencesProxy {
 
     public static void saveIntValue(String key, int value) {
         String localKey = getKeyPrefix(key);

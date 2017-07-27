@@ -2,17 +2,18 @@ package com.dive.inkotlin.presentation.home.impl
 
 import android.os.Bundle
 import com.dive.inkotlin.App
-import com.dive.inkotlin.R
-import com.dive.inkotlin.presentation.IBalanceKeeper
+import com.dive.inkotlin.presentation.IInfoKeeper
 import com.dive.inkotlin.presentation.base.impl.BaseActivity
-import com.dive.inkotlin.provider.balance.Balance
+import com.dive.inkotlin.provider.info.Info
+import org.jetbrains.anko.*
+import org.jetbrains.anko.sdk25.coroutines.onClick
 
 
 /**
  * Created by olena on 28.06.2017.
  */
 
-class HomeActivity : BaseActivity(), IBalanceKeeper {
+class HomeActivity : BaseActivity(), IInfoKeeper {
 
     init {
         App.getComponent().inject(this)
@@ -20,19 +21,31 @@ class HomeActivity : BaseActivity(), IBalanceKeeper {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
+//        setContentView(R.layout.activity_home)
+        HomeActivityUI().setContentView(this)
 
-    override fun getActivityContentView(): Int {
-        return R.layout.activity_home
-    }
-
-
-    override fun updateBalance(type: Balance, value: Int) {
 
     }
 
-    override fun keepTypes(): Array<Balance> {
-        return arrayOf(Balance.VALUE)
+    override fun updateInfo(type: Info, value: Int) {
+
     }
 
+    override fun keepTypes(): Array<Info> {
+        return arrayOf(Info.VALUE)
+    }
+
+}
+
+
+class HomeActivityUI : AnkoComponent<HomeActivity> {
+    override fun createView(ui: AnkoContext<HomeActivity>) = with(ui) {
+        verticalLayout {
+            val name = editText()
+            button("Hello world") {
+                onClick { ctx.toast("Hello, ${name.text}!") }
+            }
+
+        }
+    }
 }

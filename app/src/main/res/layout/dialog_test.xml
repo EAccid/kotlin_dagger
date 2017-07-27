@@ -5,28 +5,28 @@
 
    <include
         android:id="@+id/text1"
-        layout="@layout/z_expandable_text"
+        layout="@layout/expandable_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp" />
 
     <include
         android:id="@+id/text2"
-        layout="@layout/z_expandable_text"
+        layout="@layout/expandable_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp" />
 
     <include
         android:id="@+id/text3"
-        layout="@layout/z_expandable_text"
+        layout="@layout/expandable_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp" />
 
     <include
         android:id="@+id/text4"
-        layout="@layout/z_expandable_text"
+        layout="@layout/expandable_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp" />

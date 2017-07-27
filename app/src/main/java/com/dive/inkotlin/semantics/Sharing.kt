@@ -92,9 +92,10 @@ class Sharing {
 
         val imageRes: Int
             @DrawableRes
-            get() = when (this) {
-                else -> throw RuntimeException("You shod define resource for this package!")
-            }
+            get() = 0
+//        = when (this) {
+//            else -> throw RuntimeException("You shod define resource for this package!")
+//        }
 
         val textDescription: String
             get() = ""

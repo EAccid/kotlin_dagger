@@ -5,17 +5,16 @@ import android.content.Context
 import com.dive.inkotlin.App
 import com.dive.inkotlin.di.ApplicationContext
 import com.dive.inkotlin.di.components.ActivityComponent
-import com.dive.inkotlin.provider.IBalanceManager
-import com.dive.inkotlin.provider.IBalancePreferences
-import com.dive.inkotlin.provider.balance.BalanceManager
-import com.dive.inkotlin.provider.balance.BalancePreferences
+import com.dive.inkotlin.provider.IInfoManager
+import com.dive.inkotlin.provider.IInfoPreferences
+import com.dive.inkotlin.provider.info.InfoManager
+import com.dive.inkotlin.provider.info.InfoPreferences
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 
-
-@Module(subcomponents = arrayOf(ActivityComponent::class))
+@Module
 class AppModule(private val appContext: App) {
 
     @Provides
@@ -34,14 +33,14 @@ class AppModule(private val appContext: App) {
 
     @Provides
     @Singleton
-    fun provideBalanceManager(): IBalanceManager {
-        return BalanceManager()
+    fun provideInfoManager(): IInfoManager {
+        return InfoManager()
     }
 
     @Provides
     @Singleton
-    fun provideBalancePreferences(balanceManager: BalanceManager): IBalancePreferences {
-        return BalancePreferences(balanceManager)
+    fun provideInfoPreferences(infoManager: InfoManager): IInfoPreferences {
+        return InfoPreferences(infoManager)
     }
 
 }

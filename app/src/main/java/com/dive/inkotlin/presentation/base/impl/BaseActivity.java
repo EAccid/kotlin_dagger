@@ -1,18 +1,15 @@
 package com.dive.inkotlin.presentation.base.impl;
 
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.view.View;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.PresenterType;
+import com.dive.inkotlin.di.HasActivitySubcomponentBuilders;
 import com.dive.inkotlin.di.components.ActivityComponent;
-
 import com.dive.inkotlin.presentation.CustomDialog;
 import com.dive.inkotlin.presentation.base.BaseView;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import xdroid.toaster.Toaster;
@@ -24,19 +21,21 @@ public abstract class BaseActivity extends MvpAppCompatActivity implements BaseV
     @InjectPresenter(type = PresenterType.GLOBAL)
     BasePresenter basePresenter;
 
-   // @Inject
+    //    @Inject
     CustomDialog dialog;
 
     public BaseActivity() {
-//        component = DaggerActivityComponent.builder().activityModule(new ActivityModule(this)).build();/
+//        component = .activityModule(new ActivityModule(this)).build();
 //        component.inject(this);
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getActivityContentView());
+//        setContentView(getActivityContentView());
         ButterKnife.bind(this);
+        setupActivityComponent();
     }
 
     @Override
@@ -65,12 +64,19 @@ public abstract class BaseActivity extends MvpAppCompatActivity implements BaseV
         finish();
     }
 
-    @LayoutRes
-    protected abstract int getActivityContentView();
+//    @LayoutRes
+//    protected abstract int getActivityContentView();
 
     protected void setVisibility(View view, boolean isVisible) {
         int visibility = isVisible ? View.VISIBLE : View.GONE;
         view.setVisibility(visibility);
     }
+
+    protected void setupActivityComponent() {
+//        injectMembers(App.get(this));
+    }
+
+    protected abstract void injectMembers(HasActivitySubcomponentBuilders hasActivitySubcomponentBuilders);
+
 
 }

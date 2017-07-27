@@ -1,6 +1,4 @@
 buildscript {
-    ext.kotlinVersion = '1.1.2-4'
-    ext.androidGradlePluginVersion = '8.4.0'
 
     repositories {
         jcenter()
@@ -53,9 +51,6 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-    packagingOptions {
-        pickFirst 'META-INF/rxjava.properties'
-    }
     productFlavors {
     }
     compileOptions {
@@ -66,13 +61,10 @@ android {
         main {
             res.srcDirs =
                     [
-                            'src/main/res',
-                            'src/main/custom_res'
-
+                            'src/main/res'
                     ]
             java.source = [
-                    'src/main/java',
-                    'src/main/custom'
+                    'src/main/java'
             ]
         }
     }
@@ -121,9 +113,20 @@ dependencies {
     compile 'com.shamanland:xdroid-toaster:0.0.5'
 
     //try anko
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.16"
     compile "org.jetbrains.anko:anko:$anko_version"
-
+    compile "org.jetbrains.anko:anko-sdk25:$anko_version" // sdk15, sdk19, sdk21, sdk23 are also available
+    compile "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+    compile "org.jetbrains.anko:anko-sdk25:$anko_version"
+    compile "org.jetbrains.anko:anko-sdk25-coroutines:$anko_version"
+    compile "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
 }
+
+//kotlin {
+//    experimental {
+//        coroutines "enable"
+//    }
+//}
 
 kapt {
     generateStubs = true

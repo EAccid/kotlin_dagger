@@ -15,7 +15,7 @@ fun setupToolbar(toolbar: Toolbar?, isHomeEnabled: Boolean, title: String) {
                 return View.VISIBLE
         }
         toolbar?.setNavigationIcon(R.drawable.ic_keyboard_arrow_left)
-        toolbar?.findViewById(R.id.settings)?.visibility = settingsVisibility()
+        toolbar?.findViewById(R.id.back_button)?.visibility = settingsVisibility()
     }
     if (!title.isEmpty())
         toolbar?.title = title

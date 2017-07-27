@@ -8,9 +8,14 @@ import dagger.Module
 import dagger.Provides
 
 
-
 @Module
-class ActivityModule(private val activity: AppCompatActivity) {
+abstract class ActivityModule<out T : AppCompatActivity>(protected val activity: T) {
+
+    @Provides
+    @ActivityScope
+    fun provideActivity(): T {
+        return activity
+    }
 
     @Provides
     @ActivityScope

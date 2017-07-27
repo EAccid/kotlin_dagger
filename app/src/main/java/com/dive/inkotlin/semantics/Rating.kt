@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 class Rating {
 
-    fun rateUs(activity: Activity, milliSeconds: Long): Observable<Boolean> {
+    fun rate(activity: Activity, milliSeconds: Long): Observable<Boolean> {
         val appPackageName = activity.packageName
         val intentFromApp: Intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName))
         val intentFromWeb: Intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName))

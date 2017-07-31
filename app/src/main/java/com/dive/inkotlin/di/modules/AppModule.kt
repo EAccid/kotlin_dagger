@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import com.dive.inkotlin.App
 import com.dive.inkotlin.di.ApplicationContext
-import com.dive.inkotlin.di.components.ActivityComponent
 import com.dive.inkotlin.provider.IInfoManager
 import com.dive.inkotlin.provider.IInfoPreferences
 import com.dive.inkotlin.provider.info.InfoManager

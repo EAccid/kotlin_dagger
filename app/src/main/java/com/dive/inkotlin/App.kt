@@ -1,6 +1,7 @@
 package com.dive.inkotlin
 
 import android.app.Application
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import com.dive.inkotlin.di.ActivityComponentBuilder
 import com.dive.inkotlin.di.HasActivitySubcomponentBuilders
@@ -9,20 +10,22 @@ import com.dive.inkotlin.di.components.DaggerAppComponent
 import com.dive.inkotlin.di.modules.AppModule
 import com.orhanobut.hawk.Hawk
 import javax.inject.Inject
-import javax.inject.Provider
 
 
 private var component: AppComponent? = null
 
-class App : Application() {
+class App : Application(), HasActivitySubcomponentBuilders {
 
     @Inject
-    lateinit var activityComponentBuilders: Map<Class<out AppCompatActivity>, Provider<ActivityComponentBuilder<*, *>>>
-
+    lateinit var activityComponentBuilders: Map<Class<out AppCompatActivity>, ActivityComponentBuilder<*, *>>
 
     companion object {
         @JvmStatic fun getComponent(): AppComponent {
             return component!!
+        }
+
+        @JvmStatic fun get(context: Context): HasActivitySubcomponentBuilders {
+            return context.applicationContext as HasActivitySubcomponentBuilders
         }
     }
 
@@ -44,6 +47,11 @@ class App : Application() {
                     .build()
         }
     }
+
+    override fun getActivityComponentBuilder(activityClass: Class<out AppCompatActivity>): ActivityComponentBuilder<*, *> {
+        return activityComponentBuilders[activityClass]!!
+    }
+
 
 }
 

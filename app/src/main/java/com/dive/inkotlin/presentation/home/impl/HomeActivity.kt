@@ -2,11 +2,15 @@ package com.dive.inkotlin.presentation.home.impl
 
 import android.os.Bundle
 import com.dive.inkotlin.App
+import com.dive.inkotlin.di.HasActivitySubcomponentBuilders
+import com.dive.inkotlin.di.components.HomeActivityComponent
+import com.dive.inkotlin.presentation.CustomDialog
 import com.dive.inkotlin.presentation.IInfoKeeper
 import com.dive.inkotlin.presentation.base.impl.BaseActivity
 import com.dive.inkotlin.provider.info.Info
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
+import javax.inject.Inject
 
 
 /**
@@ -15,8 +19,15 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class HomeActivity : BaseActivity(), IInfoKeeper {
 
-    init {
-        App.getComponent().inject(this)
+//    @Inject
+//    lateinit var dialog: CustomDialog
+
+
+    override fun injectMembers(hasActivitySubcomponentBuilders: HasActivitySubcomponentBuilders?) {
+        (hasActivitySubcomponentBuilders?.getActivityComponentBuilder(HomeActivity::class.java) as HomeActivityComponent.Builder)
+                .activityModule(HomeActivityComponent.HomeActivityModule(this))
+                .build().injectMembers(this)
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

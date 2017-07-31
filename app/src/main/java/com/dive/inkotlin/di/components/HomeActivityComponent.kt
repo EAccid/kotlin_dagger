@@ -13,13 +13,12 @@ import dagger.Subcomponent
  */
 
 @ActivityScope
-@Subcomponent(modules = arrayOf(HomeActivityModule::class))
+@Subcomponent(modules = arrayOf(HomeActivityComponent.HomeActivityModule::class))
 interface HomeActivityComponent : ActivityComponent<HomeActivity> {
 
     @Subcomponent.Builder
     interface Builder : ActivityComponentBuilder<HomeActivityModule, HomeActivityComponent>
 
+    @Module
+    class HomeActivityModule (activity: HomeActivity) : ActivityModule<HomeActivity>(activity)
 }
-
-@Module
-class HomeActivityModule internal constructor(activity: HomeActivity) : ActivityModule<HomeActivity>(activity)
